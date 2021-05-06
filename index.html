@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/reset.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
     <title>Document</title>
 </head>
 <body>
-    
+
+    <script defer src="./assets/js/script.js"></script>
+
 <header>
     <h1>Choose Your Drinking Buddy!</h1>
     <p>Game Description</p>
@@ -50,19 +54,27 @@
 
 <!-- After selecting race JS makes this disappear -->
 <section>
-    <!-- Loading screen -->
     <!-- Quote -->
+    <p>Quote Placeholder</p>
+    <!-- Loading screen -->
+    <div class="loader"></div>
+    <!-- TODO: Add class=hide -->
 </section>
 
 <section>
+    <!-- RESULTS -->
+    <h2>RESULTS</h2>
+    <p>Congratulations you are drinking with <span id="charName"></span></p>
     <!-- Character name and wikilink -->
+    <p id="wikiLink"></p>
     <!-- Drink and Recipe -->
+    <a id="recipe"></a>
     <!-- Party Gandalf -->
+    <img src="./assets/images/gandalf.gif" alt="dancing gandalf">
     <!-- Start Over Button -->
+    <button>Start Over</button>
 </section>
 
 <!-- Drink Naming Generator? -->
-<!-- Sticky Footer -->
-
 </body>
 </html>
