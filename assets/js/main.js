@@ -12,19 +12,22 @@ function init() {
 function loadScreen() {
   intro.classList.add("is-hidden");
   loadingScreen.classList.remove("is-hidden");
-    fetchQuote;
+  fetchQuote();
 }
 
 // // function to fetch LOTR quote
 function fetchQuote() {
-    fetch(requestUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      }
-    });
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer H3KSd8P2pM3yWhl2QLXi");
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+  fetch("https://the-one-api.dev/v2/quote", requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
 }
 
 // function to surface final screen (add hide to loading screen, remove hide from final screen)
