@@ -31,10 +31,11 @@ function fetchQuote() {
 
       quotes.docs.forEach(quote => {
         // console log result
-        console.log(quote.dialog);
+        //console.log(quote.dialog);
     });
-
-      console.log(quotes.docs[0].dialog)
+// let randomQuote = math.Random to get random number under some number.length
+        // console.log(quote.docs[randomQuote].dialog)
+      console.log(quotes.docs[15].dialog)
     }
       )
       
