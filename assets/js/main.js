@@ -26,8 +26,22 @@ function fetchQuote() {
   };
   fetch("https://the-one-api.dev/v2/quote", requestOptions)
     .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((result) => {
+      let quotes = JSON.parse(result)
+
+      quotes.docs.forEach(quote => {
+        // console log result
+        console.log(quote.dialog);
+    });
+
+      console.log(quotes.docs[0].dialog)
+    }
+      )
+      
     .catch((error) => console.log("error", error));
+
+  
+  
 }
 
 // function to surface final screen (add hide to loading screen, remove hide from final screen)
