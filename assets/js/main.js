@@ -3,6 +3,8 @@ let intro = document.querySelector("#intro");
 let loadingScreen = document.querySelector("#loading-screen");
 let choiceButtons = document.querySelectorAll(".card");
 let drinkPage = document.querySelector("#drink-page");
+let ingredientList = [];
+let measureList = [];
 
 // init function to load page and remove hide class from intro section
 function init() {
@@ -71,9 +73,9 @@ function fetchDrink() {
     method: "GET",
     redirect: "follow",
   };
-
+// need to add event listeners on buttons to generate ${choice}
   fetch(
-    "https://thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka",
+    "https://thecocktaildb.com/api/json/v1/1/filter.php?i=vodka",
     requestOptions
   )
     .then((response) => response.text())
@@ -130,7 +132,6 @@ function fetchRecipe(cocktailID) {
       incrementMeasure(cocktailRecipe);
       printInstructions(cocktailRecipe);
       printRecipeTable(cocktailRecipe);
-
     })
     .catch((error) => console.log("error", error));
 }
@@ -141,9 +142,10 @@ function printInstructions(cocktailRecipe) {
 }
 
 // function to create table using <tr> <td> <td>
+// Come back to this function to print ingredients and measures to table because it doesn't work right now :(
 function printRecipeTable(cocktailRecipe) {
-  let ingredient1 = cocktailRecipe.drinks[0].strIngredient1;
-  let measure1 = cocktailRecipe.drinks[0].strMeasure1;
+  // let ingredient1 = cocktailRecipe.drinks[0].strIngredient1;
+  // let measure1 = cocktailRecipe.drinks[0].strMeasure1;
   let table = document.querySelector("#ingr-table");
   let row = document.createElement("tr");
   let cellIngredient = document.createElement("td");
@@ -158,25 +160,23 @@ function printRecipeTable(cocktailRecipe) {
 }
 
 function incrementIngredients(cocktailRecipe) {
-  let ingredientList = [];
-  for (var num = 1; num < 10000; num++) {
+  for (let num = 1; num < 15; num++) {
     if (!cocktailRecipe.drinks[0]["strIngredient" + num]) {
       break;
     }
     ingredientList.push(cocktailRecipe.drinks[0]["strIngredient" + num]);
   }
-  console.log(ingredientList);
+  return ingredientList;
 }
 
 function incrementMeasure(cocktailRecipe) {
-  let measureList = [];
-  for (var num = 1; num < 10000; num++) {
+  for (let num = 1; num < 15; num++) {
     if (!cocktailRecipe.drinks[0]["strMeasure" + num]) {
       break;
     }
     measureList.push(cocktailRecipe.drinks[0]["strMeasure" + num]);
   }
-  console.log(measureList);
+  return measureList;
 }
 
 // function to fetch cocktail name and ID e.g. i=gin by character selection
