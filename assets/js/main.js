@@ -35,10 +35,21 @@ function fetchQuote() {
       });
       // let randomQuote = math.Random to get random number under some number.length
       // console.log(quote.docs[randomQuote].dialog)
-      console.log(quotes.docs[15].dialog);
+      let rand = Math.random();
+      let totalQuotes = quotes.docs.length;
+      let randIndex = Math.floor(rand * totalQuotes);
+      let randomQuote = quotes.docs[randIndex];
+      console.log(randomQuote);
+      console.log(randomQuote.dialog);
+      printQuote(randomQuote);
     })
 
     .catch((error) => console.log("error", error));
+}
+
+function printQuote(randomQuote) {
+  let quote = document.querySelector("#quote");
+  quote.textContent = randomQuote.dialog;
 }
 
 // function to surface final screen (add hide to loading screen, remove hide from final screen)
