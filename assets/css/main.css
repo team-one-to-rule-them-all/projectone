@@ -1,5 +1,6 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css";
 
+.has-bg-img { background: url('/projectone/assets/images/trevor-mcgowan-8vLsahfKln8-unsplash.jpg')center center; background-size:cover; }
 
 .is-clickable {
   cursor: pointer;
