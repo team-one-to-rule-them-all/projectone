@@ -80,7 +80,7 @@ function fetchDrink() {
     .then(result => {
       let cocktails = JSON.parse(result);
 
-        cocktails.drinks.forEach((i) => {
+        cocktails.drinks.forEach(drink => {
           // console log result
           //console.log(quote.dialog);
         });
@@ -90,18 +90,41 @@ function fetchDrink() {
         let totalCocktail = cocktails.drinks.length;
         let randIndex = Math.floor(rand * totalCocktail);
         let randomCocktail = cocktails.drinks[randIndex];
+        let cocktailID = randomCocktail.idDrink
         console.log(randomCocktail);
         console.log(randomCocktail.strDrink);
         console.log(randomCocktail.idDrink);
         
         //printDrink(randomDrinks);
+        fetchRecipe(cocktailID);
       })
     .catch(error => console.log('error', error));
       
     
 }
 
+function fetchRecipe(cocktailID) {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch(`https://thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailID}`, requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      let cocktailRecipe = JSON.parse(result);
+      console.log(cocktailRecipe);
 
+      printCocktail(cocktailRecipe);
+
+    })
+    .catch(error => console.log('error', error));
+}
+
+function printCocktail(cocktailRecipe) {
+  let recipe = document.querySelector("#recipe");
+  recipe.textContent = cocktailRecipe.drinks[0].strInstructions;
+}
 
 // function to fetch cocktail name and ID e.g. i=gin by character selection
 // let race = elf
