@@ -15,7 +15,6 @@ function loadScreen() {
   intro.classList.add("is-hidden");
   loadingScreen.classList.remove("is-hidden");
   fetchQuote();
-  clearLoading();
 };
 
 // // function to fetch LOTR quote
@@ -30,6 +29,11 @@ function fetchQuote() {
   fetch("https://the-one-api.dev/v2/quote", requestOptions)
     .then((response) => response.text())
     .then((result) => {
+      setTimeout(function() {
+        loadingScreen.classList.add("is-hidden");
+        drinkScreen();
+      }, 1000);
+
       let quotes = JSON.parse(result);
 
       quotes.docs.forEach((quote) => {
@@ -55,10 +59,7 @@ function printQuote(randomQuote) {
   quote.textContent = randomQuote.dialog;
 }
 
-setTimeout(function clearLoading() {
-  loadingScreen.classList.add("is-hidden");
-  drinkScreen();
-}, 1000);
+
 
 // function to surface final screen (add hide to loading screen, remove hide from final screen)
 
@@ -92,12 +93,15 @@ function fetchDrink() {
         console.log(randomCocktail);
         console.log(randomCocktail.strDrink);
         console.log(randomCocktail.idDrink);
+        
         //printDrink(randomDrinks);
       })
     .catch(error => console.log('error', error));
-
+      
     
 }
+
+
 
 // function to fetch cocktail name and ID e.g. i=gin by character selection
 // let race = elf
