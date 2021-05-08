@@ -2,6 +2,8 @@
 let intro = document.querySelector("#intro");
 let loadingScreen = document.querySelector("#loading-screen");
 let choiceButtons = document.querySelectorAll(".card");
+let drinkPage = document.querySelector("#drink-page");
+
 
 // init function to load page and remove hide class from intro section
 function init() {
@@ -13,7 +15,8 @@ function loadScreen() {
   intro.classList.add("is-hidden");
   loadingScreen.classList.remove("is-hidden");
   fetchQuote();
-}
+  clearLoading();
+};
 
 // // function to fetch LOTR quote
 function fetchQuote() {
@@ -52,7 +55,49 @@ function printQuote(randomQuote) {
   quote.textContent = randomQuote.dialog;
 }
 
+setTimeout(function clearLoading() {
+  loadingScreen.classList.add("is-hidden");
+  drinkScreen();
+}, 1000);
+
 // function to surface final screen (add hide to loading screen, remove hide from final screen)
+
+function drinkScreen() {
+  loadingScreen.classList.add("is-hidden");
+  drinkPage.classList.remove("is-hidden");
+  fetchDrink();
+}; 
+
+function fetchDrink() {
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  
+  fetch("https://thecocktaildb.com/api/json/v1/1/filter.php?i=Vodka", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      let cocktails = JSON.parse(result);
+
+        cocktails.drinks.forEach((i) => {
+          // console log result
+          //console.log(quote.dialog);
+        });
+        // let randomQuote = math.Random to get random number under some number.length
+        // console.log(quote.docs[randomQuote].dialog)
+        let rand = Math.random();
+        let totalCocktail = cocktails.drinks.length;
+        let randIndex = Math.floor(rand * totalCocktail);
+        let randomCocktail = cocktails.drinks[randIndex];
+        console.log(randomCocktail);
+        console.log(randomCocktail.strDrink);
+        console.log(randomCocktail.idDrink);
+        //printDrink(randomDrinks);
+      })
+    .catch(error => console.log('error', error));
+
+    
+}
 
 // function to fetch cocktail name and ID e.g. i=gin by character selection
 // let race = elf
