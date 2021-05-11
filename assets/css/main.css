@@ -6,6 +6,11 @@
   padding: 64px 24px;
 }
 
+.has-text-black {
+ hsl (0, 0%, 4%);
+ font-family: "half-elvenregular";
+}
+
 .is-clickable {
   cursor: pointer;
 }
