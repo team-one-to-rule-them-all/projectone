@@ -96,14 +96,27 @@
     <section id="drink-page" class="is-hidden">
         <!-- RESULTS -->
         <h2>RESULTS</h2>
-        <p>Congratulations you are drinking with <span id="charName"></span></p>
+        <p class="">Congratulations you are drinking with <span id="charName"></span></p>
         <!-- Character name and wikilink -->
-        <p id="wikiLink"></p>
+        <p id="wikiLink" class="has-background-link"></p>
         <!-- Drink and Recipe -->
-        <p id="recipe"></p>
-        <table id="ingr-table"></table>
+        <p id="recipe" class="has-background-success"></p>
+        <div id="ingr-table" class="columns has-background-success">
+            <div class="column is-one-third">is-one-third</div>
+            <div class="column">Auto</div>
+            <div class="column">Auto</div>
+        </div>
+
         <!-- Party Gandalf -->
         <img src="./assets/images/gandalf.gif" alt="dancing gandalf">
+
+        <!-- Table of drinks already tried! -->
+        <div class="columns has-background-success has-text-grey-darker">
+            <div class="column is-one-third">Drinks Tried:</div>
+            <div class="column">Drink Companion?</div>
+            <div class="column">Was it good enough for an encore?!</div>
+        </div>
+
         <!-- Start Over Button -->
         <button>Start Over</button>
     </section>
