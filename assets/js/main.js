@@ -6,6 +6,9 @@ let drinkPage = document.querySelector("#drink-page");
 let ingredientList = [];
 let measureList = [];
 
+// try again button
+document.getElementById("try-again").onclick = tryAgain;
+
 // init function to load page and remove hide class from intro section
 function init() {
   intro.classList.remove("is-hidden");
@@ -194,6 +197,9 @@ function incrementMeasure(cocktailRecipe) {
 // function to rate drink and save drink name and rating to localStorage
 
 // function to reset
+function tryAgain() {
+  window.location.reload();
+}
 
 // event listeners for each button
 choiceButtons.forEach((btn) => btn.addEventListener("click", loadScreen));
