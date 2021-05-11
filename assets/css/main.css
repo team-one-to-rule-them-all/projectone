@@ -12,11 +12,21 @@ h1 {
    background: rgba(255, 255, 255, 0.233);
 }
 
-.has-text-black {
+.title {
  hsl (0, 0%, 4%,);
  /* background: rgba(255, 255, 255, 0.233); */
  /* this won't work unless i update the website path in the halfelven folder stylesheet */
  font-family: "half-elvenregular";
+}
+
+h2 {
+  background: rgba(255, 255, 255, 0.233);
+  font-family: "Bilbo Swash Caps" , cursive;
+  font-size: 3rem;
+}
+
+p {
+  
 }
 
 .is-clickable {
