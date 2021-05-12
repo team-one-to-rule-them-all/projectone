@@ -6,9 +6,6 @@ let drinkPage = document.querySelector("#drink-page");
 let ingredientList = [];
 let measureList = [];
 
-// try again button
-document.getElementById("try-again").onclick = tryAgain;
-
 // init function to load page and remove hide class from intro section
 function init() {
   intro.classList.remove("is-hidden");
@@ -124,8 +121,11 @@ function fetchRecipe(cocktailID) {
 function printInstructions(cocktailRecipe) {
   let recipe = document.querySelector("#recipe");
   let drinkName = document.querySelector("#drink-name");
-  recipe.textContent = cocktailRecipe.drinks[0].strInstructions;
-  drinkName.textContent = cocktailRecipe.drinks[0].strDrink;
+  let firstLine = cocktailRecipe.drinks[0];
+  recipe.textContent = firstLine.strInstructions;
+  drinkName.textContent = firstLine.strDrink;
+  let drinkString = firstLine.strDrink;
+  localStorage.setItem("drinkName", drinkString);
 }
 
 // function to create table using <tr> <td> <td>
@@ -212,8 +212,10 @@ function fetchCharacter(e) {
 function printCharName(randomChar) {
   let char = document.querySelector("#charName");
   let charInfo = document.querySelector("#charInfo");
-  if (randomChar.name != null) {
-    char.textContent = randomChar.name;
+  let cName = randomChar.name;
+  if (cName != null) {
+    char.textContent = cName;
+    localStorage.setItem("randomChar", cName);
     charInfo.href = randomChar.wikiUrl;
   } else fetchCharacter(e);
 }
@@ -229,5 +231,6 @@ function tryAgain() {
 choiceButtons.forEach((btn) => btn.addEventListener("click", loadScreen));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchDrink));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchCharacter));
+document.getElementById("try-again").onclick = tryAgain;
 
 init();
