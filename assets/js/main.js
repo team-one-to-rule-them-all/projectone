@@ -141,7 +141,9 @@ function fetchRecipe(cocktailID) {
 
 function printInstructions(cocktailRecipe) {
   let recipe = document.querySelector("#recipe");
+  let drinkName = document.querySelector("#drink-name");
   recipe.textContent = cocktailRecipe.drinks[0].strInstructions;
+  drinkName.textContent = cocktailRecipe.drinks[0].strDrink;
 }
 
 // function to create table using <tr> <td> <td>
@@ -149,28 +151,37 @@ function printInstructions(cocktailRecipe) {
 function printRecipeTable(cocktailRecipe) {
     console.log(cocktailRecipe);
   let drink = cocktailRecipe.drinks[0];
-    let ingredients = Object.entries(drink).filter(function(item){
-      if (item[0].includes("strIngredient")&&item[1]!=null){
-        console.log(item);
-        return item;
-      }
-    }).map(function(item){
-      return item[1];
-    }) 
-  console.log(ingredients);
+  let ingredients = Object.entries(drink).filter(function(item){
+    if (item[0].includes("strIngredient")&&item[1]!=null){
+      console.log(item);
+      return item;
+    }
+  }).map(function(item){
+    return item[1];
+  }) 
+  let measurements = Object.entries(drink).filter(function(item){
+    if (item[0].includes("strMeasure")&&item[1]!=null){
+      console.log(item);
+      return item;
+    }
+  }).map(function(item){
+    return item[1];
+  }) 
+  console.log(measurements);
   
   // let measure1 = cocktailRecipe.drinks[0].strMeasure1;
   let table = document.querySelector("#ingr-table");
+  for(i = 0; i<ingredients.length; i++) {
   let row = document.createElement("tr");
   let cellIngredient = document.createElement("td");
   let cellMeasure = document.createElement("td");
-  let ingredient1Text = document.createTextNode(ingredients[0]);
-  let measure1Text = document.createTextNode(measure1);
+  let ingredient1Text = document.createTextNode(ingredients[i]);
+  let measure1Text = document.createTextNode(measurements[i]);
   cellIngredient.appendChild(ingredient1Text);
   cellMeasure.appendChild(measure1Text);
-  row.appendChild(cellIngredient);
   row.appendChild(cellMeasure);
-  table.appendChild(row);
+  row.appendChild(cellIngredient);
+  table.appendChild(row);}
 }
 
 function incrementIngredients(cocktailRecipe) {
@@ -191,6 +202,28 @@ function incrementMeasure(cocktailRecipe) {
     measureList.push(cocktailRecipe.drinks[0]["strMeasure" + num]);
   }
   return measureList;
+}
+
+function characterChoice() {
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer H3KSd8P2pM3yWhl2QLXi");
+
+  var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+  };
+
+  fetch("https://the-one-api.dev/v2/character?race=Hobbit", requestOptions)
+    .then(response => response.text())
+    .then(result => {
+      let character = JSON.parse(result);
+      console.log(character);
+    })
+    .catch(error => console.log('error', error));
+
+  //button click race
+  //pick from random character in Race Array
 }
 
 // function to fetch cocktail name and ID e.g. i=gin by character selection
