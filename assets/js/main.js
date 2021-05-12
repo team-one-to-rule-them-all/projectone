@@ -147,13 +147,24 @@ function printInstructions(cocktailRecipe) {
 // function to create table using <tr> <td> <td>
 // Come back to this function to print ingredients and measures to table because it doesn't work right now :(
 function printRecipeTable(cocktailRecipe) {
-  // let ingredient1 = cocktailRecipe.drinks[0].strIngredient1;
+    console.log(cocktailRecipe);
+  let drink = cocktailRecipe.drinks[0];
+    let ingredients = Object.entries(drink).filter(function(item){
+      if (item[0].includes("strIngredient")&&item[1]!=null){
+        console.log(item);
+        return item;
+      }
+    }).map(function(item){
+      return item[1];
+    }) 
+  console.log(ingredients);
+  
   // let measure1 = cocktailRecipe.drinks[0].strMeasure1;
   let table = document.querySelector("#ingr-table");
   let row = document.createElement("tr");
   let cellIngredient = document.createElement("td");
   let cellMeasure = document.createElement("td");
-  let ingredient1Text = document.createTextNode(ingredient1);
+  let ingredient1Text = document.createTextNode(ingredients[0]);
   let measure1Text = document.createTextNode(measure1);
   cellIngredient.appendChild(ingredient1Text);
   cellMeasure.appendChild(measure1Text);
