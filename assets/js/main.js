@@ -39,19 +39,10 @@ function fetchQuote() {
       }, 1000);
 
       let quotes = JSON.parse(result);
-
-      quotes.docs.forEach((quote) => {
-        // console log result
-        //console.log(quote.dialog);
-      });
-      // let randomQuote = math.Random to get random number under some number.length
-      // console.log(quote.docs[randomQuote].dialog)
       let rand = Math.random();
       let totalQuotes = quotes.docs.length;
       let randIndex = Math.floor(rand * totalQuotes);
       let randomQuote = quotes.docs[randIndex];
-      // console.log(randomQuote);
-      // console.log(randomQuote.dialog);
       printQuote(randomQuote);
     })
 
@@ -208,16 +199,23 @@ function fetchCharacter(e) {
   fetch(`https://the-one-api.dev/v2/character?race=${charRace}`, requestOptions)
     .then((response) => response.text())
     .then((result) => {
-      let character = JSON.parse(result);
-      // Math random to get single array from response
-      // let randomChar = Different variable to pass through
+      let chars = JSON.parse(result);
+      let rand = Math.random();
+      let totalChars = chars.docs.length;
+      let randIndex = Math.floor(rand * totalChars);
+      let randomChar = chars.docs[randIndex];
       printCharName(randomChar);
     })
     .catch((error) => console.log("error", error));
 }
 
 function printCharName(randomChar) {
-
+  let char = document.querySelector("#charName");
+  let charInfo = document.querySelector("#charInfo");
+  if (randomChar.name != null) {
+    char.textContent = randomChar.name;
+    charInfo.href = randomChar.wikiUrl;
+  } else fetchCharacter(e);
 }
 
 // function to rate drink and save drink name and rating to localStorage
