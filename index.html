@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/reset.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bilbo+Swash+Caps&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/halfelven/stylesheet.css">
     <link rel="stylesheet" href="./assets/css/main.css" />
     <title>Top shElf</title>
@@ -17,9 +19,9 @@
 
     <section id="intro" class="is-hidden">
         <article class="hero is-fullheight">
-            <h1 class="title has-text-black">Choose Your Drinking Buddy!!</h1>
-            <p class="subtitle has-text-black">Game Description</p>
-          
+            <h1 class="title has-text-black">Choose Your Drinking Buddy!</h1>
+            <!-- quote was taken from http://www.notable-quotes.com/l/lord_of_the_rings_quotes.html#:~:text=You%20can%20drink%20the%20whole,drink%20them%20by%20the%20flagon. -->
+            <h2 class="has-text-black">Chose a LOTR race and answer a question to get a fun drink recipe personally named by you! "Do not spoil the wonder with haste!" ~ Legolas in Return of the King </h2>
         </article>
         <!-- The following below are the cards and buttons -->
         <!-- TODO: Add Images-->
@@ -84,7 +86,7 @@
     <!-- After selecting race JS makes this disappear -->
     <section id="loading-screen" class="is-hidden">
         <!-- Quote -->
-        <p id="quote"></p>
+        <h2 id="quote" class="quotebox"></h2>
         <!-- Loading screen -->
         <div class="loader"></div>
         <!-- TODO: Add class=hide -->
@@ -92,15 +94,32 @@
 
     <section id="drink-page" class="is-hidden">
         <!-- RESULTS -->
-        <h2>RESULTS</h2>
-        <p>Congratulations you are drinking with <span id="charName"></span></p>
+        <h2>Results!</h2>
+        <p class="">Congratulations you are drinking with <span id="charName"></span></p>
         <!-- Character name and wikilink -->
-        <p id="wikiLink"></p>
-        <!-- Drink and Recipe -->
-        <p id="recipe"></p>
-        <table id="ingr-table"></table>
+        <p id="wikiLink" class="has-background-link"></p>
+
         <!-- Party Gandalf -->
-        <img src="./assets/images/gandalf.gif" alt="dancing gandalf">
+        <img class="is center" src="./assets/images/gandalf.gif" alt="dancing gandalf">
+
+        <!-- New Drink and Recipe Table -->
+        <p id="recipe" class="has-background-success"></p>
+        <div id="ingr-table" class="columns has-background-success">
+            <div class="column is-one-third">Drink Name</div>
+            <div class="column">Ingredients</div>
+            <div class="column">Measurements</div>
+            <div class="column">Instructions</div>
+        </div> 
+
+        <br> <br>
+
+        <!-- Table of drinks already tried! -->
+        <div class="columns has-background-success has-text-grey-darker">
+            <div class="column is-one-quarter">Drinks Tried:</div>
+            <div class="column">Drink Companion?</div>
+            <div class="column">Was it good enough for an encore?!</div>
+        </div>
+
         <!-- Start Over Button -->
         <button id="try-again">Start Over</button>
     </section>
