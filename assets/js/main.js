@@ -204,17 +204,18 @@ function incrementMeasure(cocktailRecipe) {
   return measureList;
 }
 
-function characterChoice() {
+function fetchCharacter() {
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer H3KSd8P2pM3yWhl2QLXi");
 
   var requestOptions = {
+    let charName = 
     method: 'GET',
     headers: myHeaders,
     redirect: 'follow'
   };
 
-  fetch("https://the-one-api.dev/v2/character?race=Hobbit", requestOptions)
+  fetch(`https://the-one-api.dev/v2/character?race=${charName}`, requestOptions)
     .then(response => response.text())
     .then(result => {
       let character = JSON.parse(result);
