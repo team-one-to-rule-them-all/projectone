@@ -50,8 +50,8 @@ function fetchQuote() {
       let totalQuotes = quotes.docs.length;
       let randIndex = Math.floor(rand * totalQuotes);
       let randomQuote = quotes.docs[randIndex];
-      console.log(randomQuote);
-      console.log(randomQuote.dialog);
+      // console.log(randomQuote);
+      // console.log(randomQuote.dialog);
       printQuote(randomQuote);
     })
 
@@ -68,17 +68,17 @@ function printQuote(randomQuote) {
 function drinkScreen() {
   loadingScreen.classList.add("is-hidden");
   drinkPage.classList.remove("is-hidden");
-  fetchDrink();
 }
 
-function fetchDrink() {
+function fetchDrink(e) {
+  let choice = e.currentTarget.id;
   var requestOptions = {
     method: "GET",
     redirect: "follow",
   };
-// need to add event listeners on buttons to generate ${choice}
+  // need to add event listeners on buttons to generate ${choice}
   fetch(
-    "https://thecocktaildb.com/api/json/v1/1/filter.php?i=vodka",
+    `https://thecocktaildb.com/api/json/v1/1/filter.php?i=${choice}`,
     requestOptions
   )
     .then((response) => response.text())
@@ -96,24 +96,15 @@ function fetchDrink() {
       let randIndex = Math.floor(rand * totalCocktail);
       let randomCocktail = cocktails.drinks[randIndex];
       let cocktailID = randomCocktail.idDrink;
-      console.log(randomCocktail);
-      console.log(randomCocktail.strDrink);
-      console.log(randomCocktail.idDrink);
+      // console.log(randomCocktail);
+      // console.log(randomCocktail.strDrink);
+      // console.log(randomCocktail.idDrink);
 
       //printDrink(randomDrinks);
       fetchRecipe(cocktailID);
     })
     .catch((error) => console.log("error", error));
 }
-
-// function clean(obj) {
-//   for (var propName in obj) {
-//     if (obj[propName] === null || obj[propName] === undefined) {
-//       delete obj[propName];
-//     }
-//   }
-//   return obj;
-// }
 
 function fetchRecipe(cocktailID) {
   var requestOptions = {
@@ -130,7 +121,7 @@ function fetchRecipe(cocktailID) {
       let cocktailRecipe = JSON.parse(result);
       // console.log(cocktailRecipe);
       // clean(cocktailRecipe);
-      console.log(cocktailRecipe);
+      // console.log(cocktailRecipe);
       incrementIngredients(cocktailRecipe);
       incrementMeasure(cocktailRecipe);
       printInstructions(cocktailRecipe);
@@ -149,39 +140,40 @@ function printInstructions(cocktailRecipe) {
 // function to create table using <tr> <td> <td>
 // Come back to this function to print ingredients and measures to table because it doesn't work right now :(
 function printRecipeTable(cocktailRecipe) {
-    console.log(cocktailRecipe);
   let drink = cocktailRecipe.drinks[0];
-  let ingredients = Object.entries(drink).filter(function(item){
-    if (item[0].includes("strIngredient")&&item[1]!=null){
-      console.log(item);
-      return item;
-    }
-  }).map(function(item){
-    return item[1];
-  }) 
-  let measurements = Object.entries(drink).filter(function(item){
-    if (item[0].includes("strMeasure")&&item[1]!=null){
-      console.log(item);
-      return item;
-    }
-  }).map(function(item){
-    return item[1];
-  }) 
-  console.log(measurements);
-  
+  let ingredients = Object.entries(drink)
+    .filter(function (item) {
+      if (item[0].includes("strIngredient") && item[1] != null) {
+        return item;
+      }
+    })
+    .map(function (item) {
+      return item[1];
+    });
+  let measurements = Object.entries(drink)
+    .filter(function (item) {
+      if (item[0].includes("strMeasure") && item[1] != null) {
+        return item;
+      }
+    })
+    .map(function (item) {
+      return item[1];
+    });
+
   // let measure1 = cocktailRecipe.drinks[0].strMeasure1;
   let table = document.querySelector("#ingr-table");
-  for(i = 0; i<ingredients.length; i++) {
-  let row = document.createElement("tr");
-  let cellIngredient = document.createElement("td");
-  let cellMeasure = document.createElement("td");
-  let ingredient1Text = document.createTextNode(ingredients[i]);
-  let measure1Text = document.createTextNode(measurements[i]);
-  cellIngredient.appendChild(ingredient1Text);
-  cellMeasure.appendChild(measure1Text);
-  row.appendChild(cellMeasure);
-  row.appendChild(cellIngredient);
-  table.appendChild(row);}
+  for (i = 0; i < ingredients.length; i++) {
+    let row = document.createElement("tr");
+    let cellIngredient = document.createElement("td");
+    let cellMeasure = document.createElement("td");
+    let ingredient1Text = document.createTextNode(ingredients[i]);
+    let measure1Text = document.createTextNode(measurements[i]);
+    cellIngredient.appendChild(ingredient1Text);
+    cellMeasure.appendChild(measure1Text);
+    row.appendChild(cellMeasure);
+    row.appendChild(cellIngredient);
+    table.appendChild(row);
+  }
 }
 
 function incrementIngredients(cocktailRecipe) {
@@ -204,40 +196,29 @@ function incrementMeasure(cocktailRecipe) {
   return measureList;
 }
 
-function fetchCharacter() {
+function fetchCharacter(e) {
+  let charRace = e.path[2].childNodes[1].innerHTML;
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer H3KSd8P2pM3yWhl2QLXi");
-
   var requestOptions = {
-    let charName = 
-    method: 'GET',
+    method: "GET",
     headers: myHeaders,
-    redirect: 'follow'
+    redirect: "follow",
   };
-
-  fetch(`https://the-one-api.dev/v2/character?race=${charName}`, requestOptions)
-    .then(response => response.text())
-    .then(result => {
+  fetch(`https://the-one-api.dev/v2/character?race=${charRace}`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
       let character = JSON.parse(result);
-      console.log(character);
+      // Math random to get single array from response
+      // let randomChar = Different variable to pass through
+      printCharName(randomChar);
     })
-    .catch(error => console.log('error', error));
-
-  //button click race
-  //pick from random character in Race Array
+    .catch((error) => console.log("error", error));
 }
 
-// function to fetch cocktail name and ID e.g. i=gin by character selection
-// let race = elf
-// if this.value="elf" or data-name then append "gin" i=${`value`}
-// if this.value="orc" or data-name then append "vodka" i=${`value`}
-// call fetch recipe function within the same then of the booze fetch
+function printCharName(randomChar) {
 
-// function to surface above data
-
-// function to fetch recipe using called ID from previous function
-
-// function to surface above data
+}
 
 // function to rate drink and save drink name and rating to localStorage
 
@@ -248,5 +229,7 @@ function tryAgain() {
 
 // event listeners for each button
 choiceButtons.forEach((btn) => btn.addEventListener("click", loadScreen));
+choiceButtons.forEach((btn) => btn.addEventListener("click", fetchDrink));
+choiceButtons.forEach((btn) => btn.addEventListener("click", fetchCharacter));
 
 init();
