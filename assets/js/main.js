@@ -4,6 +4,9 @@ let loadingScreen = document.querySelector("#loading-screen");
 let choiceButtons = document.querySelectorAll(".card");
 let drinkPage = document.querySelector("#drink-page");
 let historyList = document.querySelector("#historyTable");
+let save = document.querySelector("#save-history");
+let saved = document.querySelector("#saved");
+let stars = document.querySelector("#stars");
 let ingredientList = [];
 let measureList = [];
 let allHistory = JSON.parse(localStorage.getItem("history")) || [];
@@ -220,19 +223,15 @@ function saveHistory() {
   let star4 = document.querySelector("#star4");
   let star5 = document.querySelector("#star5");
   if (star5.classList.contains("fas")) {
-    localStorage.setItem("rating", "5 STARS! 🤤");
-  }
-  else if (star4.classList.contains("fas")) {
-    localStorage.setItem("rating", "4 stars 🙂");
-  }
-  else if (star3.classList.contains("fas")) {
-    localStorage.setItem("rating", "3 stars 😐");
-  }
-  else if (star2.classList.contains("fas")) {
-    localStorage.setItem("rating", "2 stars 😕");
-  }
-  else if (star1.classList.contains("fas")) {
-    localStorage.setItem("rating", "1 star 🤢");
+    localStorage.setItem("rating", "🌟🌟🌟🌟🌟 🤤");
+  } else if (star4.classList.contains("fas")) {
+    localStorage.setItem("rating", "⭐⭐⭐⭐ 🙂");
+  } else if (star3.classList.contains("fas")) {
+    localStorage.setItem("rating", "⭐⭐⭐ 😐");
+  } else if (star2.classList.contains("fas")) {
+    localStorage.setItem("rating", "⭐⭐ 😕");
+  } else if (star1.classList.contains("fas")) {
+    localStorage.setItem("rating", "⭐ 🤢");
   } else {
     localStorage.setItem("rating", "unrated 🤔");
   }
@@ -249,7 +248,9 @@ function saveHistory() {
   allHistory.push(history);
   // convert the data in the array to a string so it will look nice on the screen
   localStorage.setItem("history", JSON.stringify(allHistory));
-  console.log(allHistory);
+  save.classList.add("is-hidden");
+  stars.classList.add("is-hidden");
+  saved.classList.remove("is-hidden");
   printHistory();
 }
 
@@ -298,7 +299,7 @@ choiceButtons.forEach((btn) => btn.addEventListener("click", loadScreen));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchDrink));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchCharacter));
 // save score button
-document.querySelector("#save-rating").onclick = saveHistory;
+document.querySelector("#save-history").onclick = saveHistory;
 // try again button
 document.querySelector("#try-again").onclick = tryAgain;
 // clear history button

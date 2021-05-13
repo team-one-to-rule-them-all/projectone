@@ -2,7 +2,11 @@
 
 outstanding items:
 
-- CSS (primarily on the drink page but also on the load screen)
+- CSS
+    - center quote text on loading screen
+    - perhaps remove gif
+    - put history in aside on right side of screen
+    - margin on page
 - Button click on home page only works if you click the image
 - Table headers in history section are being removed when new tr's are added
 - update readme

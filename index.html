@@ -120,16 +120,16 @@
                 <th>Ingredients</th>
             </tr>
         </table>
-        <p>How did you like the drink?</p>
         <!-- Star rating div -->
-        <div class="rating">
+        <div id="stars" class="rating">
             <i id="star1" class="rating__star far fa-star"></i>
             <i id="star2" class="rating__star far fa-star"></i>
             <i id="star3" class="rating__star far fa-star"></i>
             <i id="star4" class="rating__star far fa-star"></i>
             <i id="star5" class="rating__star far fa-star"></i>
         </div>
-        <button id="save-rating">Save to History!</button>
+        <button id="save-history" class="button">Save to History!</button>
+        <p id="saved" class="is-hidden">Saved!</p>
 
         <!-- Table of drinks already tried! -->
         <table id="historyTable" class="has-background-success has-text-grey-darker">
