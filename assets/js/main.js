@@ -6,9 +6,6 @@ let drinkPage = document.querySelector("#drink-page");
 let ingredientList = [];
 let measureList = [];
 
-// try again button
-document.getElementById("try-again").onclick = tryAgain;
-
 // init function to load page and remove hide class from intro section
 function init() {
   intro.classList.remove("is-hidden");
@@ -39,19 +36,10 @@ function fetchQuote() {
       }, 1000);
 
       let quotes = JSON.parse(result);
-
-      quotes.docs.forEach((quote) => {
-        // console log result
-        //console.log(quote.dialog);
-      });
-      // let randomQuote = math.Random to get random number under some number.length
-      // console.log(quote.docs[randomQuote].dialog)
       let rand = Math.random();
       let totalQuotes = quotes.docs.length;
       let randIndex = Math.floor(rand * totalQuotes);
       let randomQuote = quotes.docs[randIndex];
-      // console.log(randomQuote);
-      // console.log(randomQuote.dialog);
       printQuote(randomQuote);
     })
 
@@ -133,8 +121,11 @@ function fetchRecipe(cocktailID) {
 function printInstructions(cocktailRecipe) {
   let recipe = document.querySelector("#recipe");
   let drinkName = document.querySelector("#drink-name");
-  recipe.textContent = cocktailRecipe.drinks[0].strInstructions;
-  drinkName.textContent = cocktailRecipe.drinks[0].strDrink;
+  let firstLine = cocktailRecipe.drinks[0];
+  recipe.textContent = firstLine.strInstructions;
+  drinkName.textContent = firstLine.strDrink;
+  let drinkString = firstLine.strDrink;
+  localStorage.setItem("drinkName", drinkString);
 }
 
 // function to create table using <tr> <td> <td>
@@ -208,16 +199,25 @@ function fetchCharacter(e) {
   fetch(`https://the-one-api.dev/v2/character?race=${charRace}`, requestOptions)
     .then((response) => response.text())
     .then((result) => {
-      let character = JSON.parse(result);
-      // Math random to get single array from response
-      // let randomChar = Different variable to pass through
+      let chars = JSON.parse(result);
+      let rand = Math.random();
+      let totalChars = chars.docs.length;
+      let randIndex = Math.floor(rand * totalChars);
+      let randomChar = chars.docs[randIndex];
       printCharName(randomChar);
     })
     .catch((error) => console.log("error", error));
 }
 
 function printCharName(randomChar) {
-
+  let char = document.querySelector("#charName");
+  let charInfo = document.querySelector("#charInfo");
+  let cName = randomChar.name;
+  if (cName != null) {
+    char.textContent = cName;
+    localStorage.setItem("randomChar", cName);
+    charInfo.href = randomChar.wikiUrl;
+  } else fetchCharacter(e);
 }
 
 // function to rate drink and save drink name and rating to localStorage
@@ -231,5 +231,6 @@ function tryAgain() {
 choiceButtons.forEach((btn) => btn.addEventListener("click", loadScreen));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchDrink));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchCharacter));
+document.getElementById("try-again").onclick = tryAgain;
 
 init();
