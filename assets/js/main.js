@@ -3,6 +3,7 @@ let intro = document.querySelector("#intro");
 let loadingScreen = document.querySelector("#loading-screen");
 let choiceButtons = document.querySelectorAll(".card");
 let drinkPage = document.querySelector("#drink-page");
+let historyList = document.querySelector("#historyTable");
 let ingredientList = [];
 let measureList = [];
 let allHistory = JSON.parse(localStorage.getItem("history")) || [];
@@ -191,6 +192,7 @@ function incrementMeasure(cocktailRecipe) {
 
 function fetchCharacter(e) {
   let charRace = e.path[2].childNodes[1].innerHTML;
+  console.log(charRace);
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer H3KSd8P2pM3yWhl2QLXi");
   var requestOptions = {
@@ -243,8 +245,16 @@ function saveHistory() {
 // update to dynamically add table headers
 // update so that the array is written
 function printHistory() {
-  let historyCell = document.querySelector("#historyTable");
-  historyCell.innerHTML = allHistory
+  let tr = document.createElement("tr");
+  let td1 = document.createElement("td");
+  let td2 = document.createElement("td");
+  let header1 = document.createTextNode("Drinks Tried:");
+  let header2 = document.createTextNode("Drink Companion");
+  td1.appendChild(header1);
+  td2.appendChild(header2);
+  tr.appendChild(td1);
+  tr.appendChild(td2);
+  historyList.innerHTML = allHistory
     .map((history) => {
       return `<tr><td>${history.drink}</td><td>${history.companion}</td></tr>`;
     })
@@ -256,10 +266,20 @@ function tryAgain() {
   window.location.reload();
 }
 
+function clearHistory() {
+  localStorage.removeItem("history");
+  while (historyList.lastElementChild) {
+    historyList.removeChild(historyList.lastElementChild);
+  }
+}
+
 // event listeners for each button
 choiceButtons.forEach((btn) => btn.addEventListener("click", loadScreen));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchDrink));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchCharacter));
-document.getElementById("try-again").onclick = tryAgain;
+
+document.querySelector("#try-again").onclick = tryAgain;
+// clear history button
+document.querySelector("#clear-history").onclick = clearHistory;
 
 init();
