@@ -183,7 +183,7 @@ function incrementMeasure(cocktailRecipe) {
 }
 
 function fetchCharacter(e) {
-  let charRace = e.path[2].childNodes[1].innerHTML;
+  let charRace = e.path[1].childNodes[1].innerHTML;
   console.log(charRace);
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer H3KSd8P2pM3yWhl2QLXi");
