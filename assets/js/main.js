@@ -7,6 +7,7 @@ let historyList = document.querySelector("#historyTable");
 let ingredientList = [];
 let measureList = [];
 let allHistory = JSON.parse(localStorage.getItem("history")) || [];
+let ratingStars = [...document.getElementsByClassName("rating__star")];
 
 // init function to load page and remove hide class from intro section
 function init() {
@@ -35,7 +36,7 @@ function fetchQuote() {
       setTimeout(function () {
         loadingScreen.classList.add("is-hidden");
         drinkScreen();
-      }, 1000);
+      }, 3000);
 
       let quotes = JSON.parse(result);
       let rand = Math.random();
@@ -51,6 +52,7 @@ function fetchQuote() {
 function printQuote(randomQuote) {
   let quote = document.querySelector("#quote");
   quote.textContent = randomQuote.dialog;
+  quote.classList.add("fade-in");
 }
 
 // function to surface final screen (add hide to loading screen, remove hide from final screen)
@@ -75,22 +77,12 @@ function fetchDrink(e) {
     .then((result) => {
       let cocktails = JSON.parse(result);
 
-      cocktails.drinks.forEach((drink) => {
-        // console log result
-        //console.log(quote.dialog);
-      });
-      // let randomQuote = math.Random to get random number under some number.length
-      // console.log(quote.docs[randomQuote].dialog)
+      cocktails.drinks.forEach((drink) => {});
       let rand = Math.random();
       let totalCocktail = cocktails.drinks.length;
       let randIndex = Math.floor(rand * totalCocktail);
       let randomCocktail = cocktails.drinks[randIndex];
       let cocktailID = randomCocktail.idDrink;
-      // console.log(randomCocktail);
-      // console.log(randomCocktail.strDrink);
-      // console.log(randomCocktail.idDrink);
-
-      //printDrink(randomDrinks);
       fetchRecipe(cocktailID);
     })
     .catch((error) => console.log("error", error));
@@ -109,9 +101,6 @@ function fetchRecipe(cocktailID) {
     .then((response) => response.text())
     .then((result) => {
       let cocktailRecipe = JSON.parse(result);
-      // console.log(cocktailRecipe);
-      // clean(cocktailRecipe);
-      // console.log(cocktailRecipe);
       incrementIngredients(cocktailRecipe);
       incrementMeasure(cocktailRecipe);
       printInstructions(cocktailRecipe);
@@ -222,18 +211,41 @@ function printCharName(randomChar) {
     localStorage.setItem("randomChar", cName);
     charInfo.href = randomChar.wikiUrl;
   } else fetchCharacter(e);
-  saveHistory();
 }
 
 function saveHistory() {
+  let star1 = document.querySelector("#star1");
+  let star2 = document.querySelector("#star2");
+  let star3 = document.querySelector("#star3");
+  let star4 = document.querySelector("#star4");
+  let star5 = document.querySelector("#star5");
+  if (star5.classList.contains("fas")) {
+    localStorage.setItem("rating", "5 STARS! 🤤");
+  }
+  else if (star4.classList.contains("fas")) {
+    localStorage.setItem("rating", "4 stars 🙂");
+  }
+  else if (star3.classList.contains("fas")) {
+    localStorage.setItem("rating", "3 stars 😐");
+  }
+  else if (star2.classList.contains("fas")) {
+    localStorage.setItem("rating", "2 stars 😕");
+  }
+  else if (star1.classList.contains("fas")) {
+    localStorage.setItem("rating", "1 star 🤢");
+  } else {
+    localStorage.setItem("rating", "unrated 🤔");
+  }
+  // saves rating to local storage
+  // adds drink, companion, and rating to history array
   let drinkRecord = localStorage.getItem("drinkName");
   let companionRecord = localStorage.getItem("randomChar");
+  let ratingRecord = localStorage.getItem("rating");
   let history = {
     drink: drinkRecord,
     companion: companionRecord,
-    // rating:
+    rating: ratingRecord,
   };
-  // push player input and time to the score array
   allHistory.push(history);
   // convert the data in the array to a string so it will look nice on the screen
   localStorage.setItem("history", JSON.stringify(allHistory));
@@ -242,24 +254,32 @@ function saveHistory() {
 }
 
 // function to rate drink and save drink name and rating to localStorage
-// update to dynamically add table headers
 // update so that the array is written
 function printHistory() {
-  let tr = document.createElement("tr");
-  let td1 = document.createElement("td");
-  let td2 = document.createElement("td");
-  let header1 = document.createTextNode("Drinks Tried:");
-  let header2 = document.createTextNode("Drink Companion");
-  td1.appendChild(header1);
-  td2.appendChild(header2);
-  tr.appendChild(td1);
-  tr.appendChild(td2);
   historyList.innerHTML = allHistory
     .map((history) => {
-      return `<tr><td>${history.drink}</td><td>${history.companion}</td></tr>`;
+      return `<tr><td>${history.drink}</td><td>${history.companion}</td><td>${history.rating}</td></tr>`;
     })
     .join("");
 }
+
+function rateDrink(stars) {
+  let starClassActive = "rating__star fas fa-star";
+  let starClassInactive = "rating__star far fa-star";
+  let starsLength = stars.length;
+  let i;
+  stars.map((star) => {
+    star.onclick = () => {
+      i = stars.indexOf(star);
+      if (star.className === starClassInactive) {
+        for (i; i >= 0; --i) stars[i].className = starClassActive;
+      } else {
+        for (i; i < starsLength; ++i) stars[i].className = starClassInactive;
+      }
+    };
+  });
+}
+rateDrink(ratingStars);
 
 // function to reset
 function tryAgain() {
@@ -277,7 +297,9 @@ function clearHistory() {
 choiceButtons.forEach((btn) => btn.addEventListener("click", loadScreen));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchDrink));
 choiceButtons.forEach((btn) => btn.addEventListener("click", fetchCharacter));
-
+// save score button
+document.querySelector("#save-rating").onclick = saveHistory;
+// try again button
 document.querySelector("#try-again").onclick = tryAgain;
 // clear history button
 document.querySelector("#clear-history").onclick = clearHistory;
