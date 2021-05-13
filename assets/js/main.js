@@ -5,6 +5,7 @@ let choiceButtons = document.querySelectorAll(".card");
 let drinkPage = document.querySelector("#drink-page");
 let ingredientList = [];
 let measureList = [];
+let allHistory = JSON.parse(localStorage.getItem("history")) || [];
 
 // init function to load page and remove hide class from intro section
 function init() {
@@ -126,6 +127,7 @@ function printInstructions(cocktailRecipe) {
   drinkName.textContent = firstLine.strDrink;
   let drinkString = firstLine.strDrink;
   localStorage.setItem("drinkName", drinkString);
+  printHistory();
 }
 
 // function to create table using <tr> <td> <td>
@@ -218,9 +220,36 @@ function printCharName(randomChar) {
     localStorage.setItem("randomChar", cName);
     charInfo.href = randomChar.wikiUrl;
   } else fetchCharacter(e);
+  saveHistory();
+}
+
+function saveHistory() {
+  let drinkRecord = localStorage.getItem("drinkName");
+  let companionRecord = localStorage.getItem("randomChar");
+  let history = {
+    drink: drinkRecord,
+    companion: companionRecord,
+    // rating:
+  };
+  // push player input and time to the score array
+  allHistory.push(history);
+  // convert the data in the array to a string so it will look nice on the screen
+  localStorage.setItem("history", JSON.stringify(allHistory));
+  console.log(allHistory);
+  printHistory();
 }
 
 // function to rate drink and save drink name and rating to localStorage
+// update to dynamically add table headers
+// update so that the array is written
+function printHistory() {
+  let historyCell = document.querySelector("#historyTable");
+  historyCell.innerHTML = allHistory
+    .map((history) => {
+      return `<tr><td>${history.drink}</td><td>${history.companion}</td></tr>`;
+    })
+    .join("");
+}
 
 // function to reset
 function tryAgain() {
