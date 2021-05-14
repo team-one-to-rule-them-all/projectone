@@ -6,6 +6,7 @@ let drinkPage = document.querySelector("#drink-page");
 let historyPage = document.querySelector("#history-page");
 let historyList = document.querySelector("#historyTable");
 let viewHistory = document.querySelector("#view-history");
+let toFinalPage = document.querySelector("#to-final-page");
 let save = document.querySelector("#save-history");
 let saved = document.querySelector("#saved");
 let stars = document.querySelector("#stars");
@@ -270,18 +271,18 @@ function saveHistory() {
 // function to rate drink and save drink name and rating to localStorage
 // update so that the array is written
 function printHistory() {
-    allHistory.map((history) => {
-      let row = document.createElement("tr");
-      let column1 = document.createElement("td");
-      let column2 = document.createElement("td");
-      let column3 = document.createElement("td");
-      column1.innerHTML = history.drink;
-      column2.innerHTML = history.companion;
-      column3.innerHTML = history.rating;
-      row.append(column1, column2, column3);
-      historyList.appendChild(row);
-    })
-    // .join("");
+  allHistory.map((history) => {
+    let row = document.createElement("tr");
+    let column1 = document.createElement("td");
+    let column2 = document.createElement("td");
+    let column3 = document.createElement("td");
+    column1.innerHTML = history.drink;
+    column2.innerHTML = history.companion;
+    column3.innerHTML = history.rating;
+    row.append(column1, column2, column3);
+    historyList.appendChild(row);
+  });
+  // .join("");
 }
 
 function rateDrink(stars) {
@@ -310,11 +311,13 @@ function tryAgain() {
 function goToHistory() {
   drinkPage.classList.add("is-hidden");
   historyPage.classList.remove("is-hidden");
+  toFinalPage.classList.remove("is-hidden");
 }
 
 function viewHistoryFromHome() {
   intro.classList.add("is-hidden");
   historyPage.classList.remove("is-hidden");
+  printHistory();
 }
 
 function clearHistory() {
