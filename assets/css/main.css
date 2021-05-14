@@ -1,17 +1,6 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css";
 
-.hero {
-  background: url("./../images/hobbiton.jpg") no-repeat center center fixed;
-  /* background-image: url("../images/hobbiton.jpg") center; */
-  background-size: cover;
-  padding: 64px 24px;
-}
-
 /* fiddle with the opacity of the picture and or the h1 and ptags */
-h1 {
-  background: rgba(255, 255, 255, 0.808);
-}
-
 .title {
   background-color: rgba(255, 255, 255, 0.856);
   /* background: rgba(255, 255, 255, 0.233); */
@@ -25,12 +14,16 @@ h2 {
   font-size: 3rem;
 }
 
+.opaque {
+  background: rgba(255, 255, 255, 0.8);
+}
+
 h1 {
-  background: rgba(255, 255, 255, 0.233);
   font-family: "Bilbo Swash Caps", cursive;
   font-size: 5rem;
   text-align: center;
 }
+
 p {
   font-size: 1rem;
 }
@@ -78,9 +71,8 @@ table {
    color: #dabd18b2;
 }
 
-#drink-page{
+body {
   background: url("./../images/hobbiton.jpg") no-repeat center center fixed;
   /* background-image: url("../images/hobbiton.jpg") center; */
   background-size: cover;
-  padding: 64px 24px;
 }
