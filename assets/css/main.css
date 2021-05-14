@@ -63,16 +63,24 @@ table {
 }
 
 .rating {
-   width: 180px;
+  width: 180px;
 }
 
 .rating__star {
-   cursor: pointer;
-   color: #dabd18b2;
+  cursor: pointer;
+  color: #dabd18c8;
 }
 
 body {
   background: url("./../images/hobbiton.jpg") no-repeat center center fixed;
   /* background-image: url("../images/hobbiton.jpg") center; */
   background-size: cover;
+}
+
+.large-text {
+  font-size: 1.5rem;
+}
+
+.bcgWhite {
+  background-color: white;
 }
