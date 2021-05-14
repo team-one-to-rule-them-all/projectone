@@ -77,3 +77,10 @@ table {
    cursor: pointer;
    color: #dabd18b2;
 }
+
+#drink-page{
+  background: url("./../images/hobbiton.jpg") no-repeat center center fixed;
+  /* background-image: url("../images/hobbiton.jpg") center; */
+  background-size: cover;
+  padding: 64px 24px;
+}
