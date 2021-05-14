@@ -257,11 +257,18 @@ function saveHistory() {
 // function to rate drink and save drink name and rating to localStorage
 // update so that the array is written
 function printHistory() {
-  historyList.innerHTML = allHistory
-    .map((history) => {
-      return `<tr><td>${history.drink}</td><td>${history.companion}</td><td>${history.rating}</td></tr>`;
+    allHistory.map((history) => {
+      let row = document.createElement("tr");
+      let column1 = document.createElement("td");
+      let column2 = document.createElement("td");
+      let column3 = document.createElement("td");
+      column1.innerHTML = history.drink;
+      column2.innerHTML = history.companion;
+      column3.innerHTML = history.rating;
+      row.append(column1, column2, column3);
+      historyList.appendChild(row);
     })
-    .join("");
+    // .join("");
 }
 
 function rateDrink(stars) {
