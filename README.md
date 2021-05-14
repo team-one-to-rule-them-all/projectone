@@ -1,18 +1,5 @@
 # projectone
 
-outstanding items:
-
-- CSS
-    - center quote text on loading screen
-    - perhaps remove gif
-    - put history in aside on right side of screen
-    - margin on page
-- Button click on home page only works if you click the image
-- Table headers in history section are being removed when new tr's are added
-- update readme
-
-# projectone
-
 Built by Team One To Rule Them All
 (K-Leigh Marbury, Matt Winter, Jason Hsieh, Michael Rao)
 
