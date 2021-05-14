@@ -18,7 +18,6 @@ let ratingStars = [...document.getElementsByClassName("rating__star")];
 // init function to load page and remove hide class from intro section
 function init() {
   if (allHistory.length === 0) {
-    console.log(allHistory);
     viewHistory.classList.add("is-hidden");
   } else {
     viewHistory.classList.remove("is-hidden");
@@ -61,6 +60,7 @@ function fetchQuote() {
     .catch((error) => console.log("error", error));
 }
 
+// function to print quote to the screen
 function printQuote(randomQuote) {
   let quote = document.querySelector("#quote");
   quote.textContent = randomQuote.dialog;
@@ -68,24 +68,24 @@ function printQuote(randomQuote) {
 }
 
 // function to surface final screen (add hide to loading screen, remove hide from final screen)
-
 function drinkScreen() {
   loadingScreen.classList.add("is-hidden");
   drinkPage.classList.remove("is-hidden");
 }
 
+// function for go back button from history screen
 function backToDrinkScreen() {
   historyPage.classList.add("is-hidden");
   drinkPage.classList.remove("is-hidden");
 }
 
+// function to fetch drink from cocktail API
 function fetchDrink(e) {
   let choice = e.currentTarget.id;
   var requestOptions = {
     method: "GET",
     redirect: "follow",
   };
-  // need to add event listeners on buttons to generate ${choice}
   fetch(
     `https://thecocktaildb.com/api/json/v1/1/filter.php?i=${choice}`,
     requestOptions
@@ -105,6 +105,7 @@ function fetchDrink(e) {
     .catch((error) => console.log("error", error));
 }
 
+// function to get recipe from cocktail API based on cocktail ID
 function fetchRecipe(cocktailID) {
   var requestOptions = {
     method: "GET",
@@ -126,6 +127,7 @@ function fetchRecipe(cocktailID) {
     .catch((error) => console.log("error", error));
 }
 
+// function to print drink instructions to screen
 function printInstructions(cocktailRecipe) {
   let recipe = document.querySelector("#recipe");
   let drinkName = document.querySelector("#drink-name");
@@ -138,7 +140,6 @@ function printInstructions(cocktailRecipe) {
 }
 
 // function to create table using <tr> <td> <td>
-// Come back to this function to print ingredients and measures to table because it doesn't work right now :(
 function printRecipeTable(cocktailRecipe) {
   let drink = cocktailRecipe.drinks[0];
   let ingredients = Object.entries(drink)
@@ -159,8 +160,7 @@ function printRecipeTable(cocktailRecipe) {
     .map(function (item) {
       return item[1];
     });
-
-  // let measure1 = cocktailRecipe.drinks[0].strMeasure1;
+  // create table
   let table = document.querySelector("#ingr-table");
   for (i = 0; i < ingredients.length; i++) {
     let row = document.createElement("tr");
@@ -176,6 +176,7 @@ function printRecipeTable(cocktailRecipe) {
   }
 }
 
+// function to loop through ingredient response
 function incrementIngredients(cocktailRecipe) {
   for (let num = 1; num < 15; num++) {
     if (!cocktailRecipe.drinks[0]["strIngredient" + num]) {
@@ -186,6 +187,7 @@ function incrementIngredients(cocktailRecipe) {
   return ingredientList;
 }
 
+// function to loop through measurements response
 function incrementMeasure(cocktailRecipe) {
   for (let num = 1; num < 15; num++) {
     if (!cocktailRecipe.drinks[0]["strMeasure" + num]) {
@@ -196,9 +198,9 @@ function incrementMeasure(cocktailRecipe) {
   return measureList;
 }
 
+// function to get character based on race selection
 function fetchCharacter(e) {
   let charRace = e.path[1].childNodes[1].innerHTML;
-  console.log(charRace);
   var myHeaders = new Headers();
   myHeaders.append("Authorization", "Bearer H3KSd8P2pM3yWhl2QLXi");
   var requestOptions = {
@@ -219,6 +221,7 @@ function fetchCharacter(e) {
     .catch((error) => console.log("error", error));
 }
 
+// function to print character name to final page
 function printCharName(randomChar) {
   let char = document.querySelector("#charName");
   let charInfo = document.querySelector("#charInfo");
@@ -230,6 +233,7 @@ function printCharName(randomChar) {
   } else fetchCharacter(e);
 }
 
+// function for save history button
 function saveHistory() {
   let star1 = document.querySelector("#star1");
   let star2 = document.querySelector("#star2");
@@ -269,7 +273,6 @@ function saveHistory() {
 }
 
 // function to rate drink and save drink name and rating to localStorage
-// update so that the array is written
 function printHistory() {
   allHistory.map((history) => {
     let row = document.createElement("tr");
@@ -282,9 +285,9 @@ function printHistory() {
     row.append(column1, column2, column3);
     historyList.appendChild(row);
   });
-  // .join("");
 }
 
+// function for drink rating
 function rateDrink(stars) {
   let starClassActive = "rating__star fas fa-star";
   let starClassInactive = "rating__star far fa-star";
@@ -308,18 +311,21 @@ function tryAgain() {
   window.location.reload();
 }
 
+// function to go to history page from final page
 function goToHistory() {
   drinkPage.classList.add("is-hidden");
   historyPage.classList.remove("is-hidden");
   toFinalPage.classList.remove("is-hidden");
 }
 
+// function to go to history page from home page
 function viewHistoryFromHome() {
   intro.classList.add("is-hidden");
   historyPage.classList.remove("is-hidden");
   printHistory();
 }
 
+// function to clear history
 function clearHistory() {
   localStorage.removeItem("history");
   while (historyList.lastElementChild) {
