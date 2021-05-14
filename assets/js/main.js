@@ -3,7 +3,9 @@ let intro = document.querySelector("#intro");
 let loadingScreen = document.querySelector("#loading-screen");
 let choiceButtons = document.querySelectorAll(".card");
 let drinkPage = document.querySelector("#drink-page");
+let historyPage = document.querySelector("#history-page");
 let historyList = document.querySelector("#historyTable");
+let viewHistory = document.querySelector("#view-history");
 let save = document.querySelector("#save-history");
 let saved = document.querySelector("#saved");
 let stars = document.querySelector("#stars");
@@ -14,6 +16,12 @@ let ratingStars = [...document.getElementsByClassName("rating__star")];
 
 // init function to load page and remove hide class from intro section
 function init() {
+  if (allHistory.length === 0) {
+    console.log(allHistory);
+    viewHistory.classList.add("is-hidden");
+  } else {
+    viewHistory.classList.remove("is-hidden");
+  }
   intro.classList.remove("is-hidden");
 }
 
@@ -62,6 +70,11 @@ function printQuote(randomQuote) {
 
 function drinkScreen() {
   loadingScreen.classList.add("is-hidden");
+  drinkPage.classList.remove("is-hidden");
+}
+
+function backToDrinkScreen() {
+  historyPage.classList.add("is-hidden");
   drinkPage.classList.remove("is-hidden");
 }
 
@@ -287,6 +300,16 @@ function tryAgain() {
   window.location.reload();
 }
 
+function goToHistory() {
+  drinkPage.classList.add("is-hidden");
+  historyPage.classList.remove("is-hidden");
+}
+
+function viewHistoryFromHome() {
+  intro.classList.add("is-hidden");
+  historyPage.classList.remove("is-hidden");
+}
+
 function clearHistory() {
   localStorage.removeItem("history");
   while (historyList.lastElementChild) {
@@ -302,7 +325,16 @@ choiceButtons.forEach((btn) => btn.addEventListener("click", fetchCharacter));
 document.querySelector("#save-history").onclick = saveHistory;
 // try again button
 document.querySelector("#try-again").onclick = tryAgain;
+// go back button
+document.querySelector("#go-back").onclick = tryAgain;
+// start over button
+document.querySelector("#start-over").onclick = tryAgain;
+// view history buttons
+document.querySelector("#view-history").onclick = viewHistoryFromHome;
+document.querySelector("#go-to-history").onclick = goToHistory;
 // clear history button
 document.querySelector("#clear-history").onclick = clearHistory;
+// go back to final page
+document.querySelector("#to-final-page").onclick = backToDrinkScreen;
 
 init();
