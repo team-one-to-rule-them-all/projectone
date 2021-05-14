@@ -17,6 +17,9 @@
 <body>
     <script defer src="./assets/js/main.js"></script>
     <section id="intro" class="is-hidden">
+        <header>
+            <button id="view-history" class="button">View History</button>
+        </header>
         <article class="hero is-fullheight">
             <a href="#cards" class="title has-text-black">Click Here or Scroll to Choose Your Drinking Buddy!</a>
             <!-- quote was taken from http://www.notable-quotes.com/l/lord_of_the_rings_quotes.html#:~:text=You%20can%20drink%20the%20whole,drink%20them%20by%20the%20flagon. -->
@@ -102,6 +105,7 @@
     </section>
 
     <section id="drink-page" class="is-hidden">
+        <button id="go-back" class="button">Go Back</button>
         <!-- RESULTS -->
         <h2>Results!</h2>
         <p class="">Congratulations you are drinking with <span id="charName"></span>!</p>
@@ -129,19 +133,24 @@
         </div>
         <button id="save-history" class="button">Save to History!</button>
         <p id="saved" class="is-hidden">Saved!</p>
+        <!-- Start Over and View History Buttons -->
+        <button id="try-again" class="button">Start Over</button>
+        <button id="go-to-history" class="button">View History</button>
+    </section>
 
-        <!-- Table of drinks already tried! -->
-        <table id="historyTable" class="has-background-success has-text-grey-darker table">
+    <section id="history-page" class="is-hidden">
+        <button id="to-final-page" class="button">Go Back</button>
+        <!-- Table of drinks already tried -->
+        <table id="historyTable" class="has-background-success has-text-grey-darker">
+
             <tr>
                 <th>Drink</th>
                 <th>Companion</th>
                 <th>Rating</th>
             </tr>
         </table>
-
-        <!-- Start Over Button -->
-        <button id="try-again" class="button">Start Over</button>
         <button id="clear-history" class="button">Clear History</button>
+        <button id="start-over" class="button">Start Over</button>
     </section>
 
 </body>
