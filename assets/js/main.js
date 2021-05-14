@@ -136,7 +136,6 @@ function printInstructions(cocktailRecipe) {
   drinkName.textContent = firstLine.strDrink;
   let drinkString = firstLine.strDrink;
   localStorage.setItem("drinkName", drinkString);
-  printHistory();
 }
 
 // function to create table using <tr> <td> <td>
@@ -269,7 +268,6 @@ function saveHistory() {
   save.classList.add("is-hidden");
   stars.classList.add("is-hidden");
   saved.classList.remove("is-hidden");
-  printHistory();
 }
 
 // function to rate drink and save drink name and rating to localStorage
@@ -316,6 +314,7 @@ function goToHistory() {
   drinkPage.classList.add("is-hidden");
   historyPage.classList.remove("is-hidden");
   toFinalPage.classList.remove("is-hidden");
+  printHistory();
 }
 
 // function to go to history page from home page
