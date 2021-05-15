@@ -3,7 +3,10 @@
 Built by Team One To Rule Them All
 (K-Leigh Marbury, Matt Winter, Jason Hsieh, Michael Rao)
 
-A simple web application that allows users to select a Lord of the Rings character race and be surfaced a quote, and then a drink recipe based on the character selection. A screenshot of the webpage can be found here _INSERT SCREENSHOT_.
+A simple web application that allows users to select a Lord of the Rings character race and be surfaced a quote, and then a drink recipe based on the character selection. A few screenshots of the website can be found below: 
+![Screen Shot 2021-05-14 at 12 41 10 PM](https://user-images.githubusercontent.com/78391731/118344084-2160a800-b4f2-11eb-8cfd-d8dc9b0b49e4.png)
+![Screen Shot 2021-05-14 at 12 39 59 PM](https://user-images.githubusercontent.com/78391731/118344098-350c0e80-b4f2-11eb-9c15-fcb9f8fef282.png)
+![Screen Shot 2021-05-14 at 12 40 36 PM](https://user-images.githubusercontent.com/78391731/118344090-2d4c6a00-b4f2-11eb-8176-a7e0f9581fcb.png)
 
 # Technologies Used
 
